@@ -5,11 +5,19 @@ namespace ConsoleApp1
 {
     class Program
     {
-        const string EXCEL_PROG_ID = "Excel.Application";
-        const uint MK_E_UNAVAILABLE = 0x800401e3;
-        const uint DV_E_FORMATETC = 0x80040064;
 
-        ConsoleKey chrCmd;
+        //const string EXCEL_PROG_ID = "Excel.Application";
+        //const uint MK_E_UNAVAILABLE = 0x800401e3;
+        //const uint DV_E_FORMATETC = 0x80040064;
+
+        static ConsoleKeyInfo chrCmd;
+
+        public class tagIDBuffer
+        {
+
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -17,9 +25,15 @@ namespace ConsoleApp1
             string date;
             int ID;
 
+            Thread Thr_EndProgramm = new Thread(EndProgramm);
+            Thr_EndProgramm.Start();
+
+            Console.WriteLine("**********************************");
+            Console.WriteLine("***** VT UHF Tag Reader v0.1 *****");
+            Console.WriteLine("**********************************");
+
             do
             {
-                Console.WriteLine("Hello World !!!");
 
                 date = getDate();
                 ID = randomInt(25);
@@ -27,12 +41,13 @@ namespace ConsoleApp1
                 Console.WriteLine(date);
                 Console.WriteLine(ID.ToString());
 
-                Console.ReadKey();
+                //Console.ReadKey();
+                Thread.Sleep(1000);
 
-            } while (true);
+            } while (chrCmd.Key != ConsoleKey.C);
 
-            
-            
+
+
             /*
             dynamic excelApp = null;
             try
@@ -69,15 +84,26 @@ namespace ConsoleApp1
             dynamic sheet = workbook.ActiveSheet;
             dynamic cell = sheet.Cells[1, 1];
             cell.Value = date;*/
-            
+
         }
 
         //----------------------------------------------------------------------------------------------
         // Threads
         //----------------------------------------------------------------------------------------------
 
+        //La méthode prend en paramètre un et un seul paramètre de type Object.
+        static void EndProgramm()
+        {
+            do
+            {
+                Thread.Sleep(10);
 
-
+                if (Console.KeyAvailable)
+                {
+                    chrCmd = Console.ReadKey(true);
+                }
+            } while (chrCmd.Key != ConsoleKey.C);
+        }
 
         //----------------------------------------------------------------------------------------------
         // Methods
