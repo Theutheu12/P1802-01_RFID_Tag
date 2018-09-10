@@ -115,7 +115,7 @@ namespace ConsoleApp1
                     tagIDBuffer.tagCount[tagIDBuffer.bufferIndex]++;
                     tagIDBuffer.bufferIndex++;
                     excelIndex++;
-                    excelApp.SaveAs();
+                    //excelApp.SaveAs();
                 }
                 else if (searchIndex >= 0)
                 {
@@ -137,7 +137,7 @@ namespace ConsoleApp1
                         cell.Value = string.Format("{0:HH:mm:ss.ff}", scanTime);
                         tagIDBuffer.tagCount[searchIndex]++;
                         excelIndex++;
-                        excelApp.SaveAs();
+                        //excelApp.SaveAs();
                     }
 
                 }
